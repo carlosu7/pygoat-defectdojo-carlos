@@ -29,7 +29,7 @@ To setup the project on your local machine :
 First, Clone the repository using GitHub website or git in Terminal
 ```
   git clone https://github.com/adeyosemanputra/pygoat.git
-  ### To Download a specific branch
+  ### To Download a asdfspecific branch
   git clone -b <branch_name> https://github.com/adeyosemanputra/pygoat.git
 ```
 
