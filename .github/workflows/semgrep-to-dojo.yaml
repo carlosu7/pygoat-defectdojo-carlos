@@ -43,32 +43,9 @@ jobs:
             -F "branch_tag=${{ github.ref }}" \
             -F "commit_hash=${{ github.sha }}" \
             -F "close_old_findings=true"
-      - name: Upload to Pixee
-        if: github.event_name == 'pull_request'
-        shell: bash
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DEFECTDOJO_TOKEN: ${{ secrets.DEFECTDOJO_TOKEN }}
-          DEFECTDOJO_URL: ${{ secrets.DEFECTDOJO_URL }}
-          REPO_NAME: ${{ github.event.repository.name }}
-          REPO_OWNER: ${{ github.event.repository_owner }}
-          SHA: ${{ github.event.pull_request.head.sha }}
-        run: |
-          rule_id="python.django.security.audit.secure-cookies.django-secure-set-cookie"
-          URL="$DEFECTDOJO_URL/api/v2/findings/?commit_hash=$SHA&title=$rule_id&product_name=pygoat_demo&limit=2000"
-          curl -v -H "Authorization: Token $DEFECTDOJO_TOKEN" "$URL" -o defectdojo.findings.json
-
-          cat defectdojo.findings.json
-
-          SECRET=$(curl -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=https://app.pixee.ai" | jq -j '.value')
-
-          ANALYSIS_URL="https://api.pixee.ai/analysis-input/PixeeSandbox/pygoat-defectdojo/$SHA/defectdojo"
-          echo "Uploading to $ANALYSIS_URL"
-          API_RESPONSE=$(curl -v -X PUT -H "Authorization: Bearer $SECRET" -H "Content-Type: multipart/form-data" -F "file=@defectdojo.findings.json" "$ANALYSIS_URL")
-          echo "$API_RESPONSE"
-      - name: "Trigger Pixee Analysis"
-        if: github.event_name == 'pull_request'
-        run: |
-          SECRET=$(curl -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=https://app.pixee.ai" | jq -j '.value')
-          API_RESPONSE=$(curl -v -X POST -H "Authorization: Bearer $SECRET" "https://api.pixee.ai/analysis-input/PixeeSandbox/pygoat-defectdojo/${{ github.event.number }}")
-          echo $API_RESPONSE
+      - name: Fix DefectDojo Findings with Pixeebot
+        uses: pixee/upload-tool-results-action@48cd643ecff182ca249034509e2943d745b6a9af
+        with:
+          tool: defectdojo
+          defectdojo-token: ${{ secrets.DEFECTDOJO_TOKEN }}
+          defectdojo-api-url: ${{ secrets.DEFECTDOJO_URL }}
