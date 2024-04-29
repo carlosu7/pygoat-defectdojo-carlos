@@ -49,3 +49,4 @@ jobs:
           tool: defectdojo
           defectdojo-token: ${{ secrets.DEFECTDOJO_TOKEN }}
           defectdojo-api-url: ${{ secrets.DEFECTDOJO_URL }}
+          defectdojo-product-name: pygoat_demo
