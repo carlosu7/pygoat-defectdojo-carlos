@@ -23,7 +23,7 @@ Table of Contents
 
 ### From Sources
 
-To setup the project on your local machine:
+To setup the project on your local machine :
 <br>
 
 First, Clone the repository using GitHub website or git in Terminal
