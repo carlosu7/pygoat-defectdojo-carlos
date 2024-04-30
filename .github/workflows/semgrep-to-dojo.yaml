@@ -47,6 +47,6 @@ jobs:
         uses: pixee/upload-tool-results-action@724790a1a8abe65f11c6e2705c602d02a228c72e
         with:
           tool: defectdojo
-          defectdojo-token: d27a66703fe2be1c989c6d987c27fc4595209613
-          defectdojo-api-url: https://pixee-test.cloud.defectdojo.com
+          defectdojo-token: ${{ secrets.DEFECTDOJO_TOKEN }}
+          defectdojo-api-url: ${{ secrets.DEFECTDOJO_URL }}
           defectdojo-product-name: pygoat_demo
