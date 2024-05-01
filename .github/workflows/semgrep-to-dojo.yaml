@@ -44,7 +44,7 @@ jobs:
             -F "commit_hash=${{ github.sha }}" \
             -F "close_old_findings=true"
       - name: Fix DefectDojo Findings with Pixeebot
-        uses: pixee/upload-tool-results-action@ec800f47b2116f3a55a18cb5ee8ebea6e3abe2d1
+        uses: pixee/upload-tool-results-action@6cb5708b8a987cec705a1053652c715e985b93d3
         with:
           tool: defectdojo
           defectdojo-token: ${{ secrets.DEFECTDOJO_TOKEN }}
