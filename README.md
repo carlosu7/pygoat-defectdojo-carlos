@@ -26,7 +26,7 @@ Table of Contents
 To setup the project on your local machine :
 <br>
 
-First, Clone the repository using GitHub website or git in Terminal
+First, Clone the repository using GitHuasdfb website or git in Terminal
 ```
   git clone https://github.com/adeyosemanputra/pygoat.git
   ### To Download a asdfspecific branch
